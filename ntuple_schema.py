@@ -93,6 +93,11 @@ class NtupleSchema(BaseSchema):
                 content[var] = branch_forms[branchname]
             output[obj[0]] = zip_forms(content, obj[0], 'PtEtaPhiMLorentzVector')
         
+        output['trigPassed'] = zip_forms({
+            k[len('trigPassed')+1:]: branch_forms[k] 
+            for k in branch_forms 
+            if k.startswith('trigPassed_')
+        }, 'trigPassed')
         output["weight"] = branch_forms["generatorWeight_NOSYS"]
 
         return output
